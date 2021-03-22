@@ -1,5 +1,5 @@
-export const PersonsTable = (props) => (
-    <table border={props.border}>
+export const PersonsTable = ({ persons , border }) => (
+    <table border={border}>
         <thead>
             <tr>
                 <th>First Name</th>
@@ -9,7 +9,7 @@ export const PersonsTable = (props) => (
             </tr>
         </thead>
         <tbody>
-            {props.persons.map((person, index) => (
+            {persons.map((person, index) => (
                 <tr key={index}>
                     <td>{person.firstName.split(/\s*,\s*/).join("<br>")}</td>
                     <td>{person.lastName}</td>
@@ -20,13 +20,12 @@ export const PersonsTable = (props) => (
                     </td>
                 </tr>
         ))}
-
         </tbody>
         <tfoot>
             <tr>
-                <td><input type="text" placeholder="Enter First Name" name="firstName" /></td>
-                <td><input type="text" placeholder="Enter Last Name" name="lastName" /></td>
-                <td><input type="text" placeholder="GitHub account" name="gitHub" /></td>
+                <td><input type="text" placeholder="Enter First Name" required name="firstName" /></td>
+                <td><input type="text" placeholder="Enter Last Name" required name="lastName" /></td>
+                <td><input type="text" placeholder="GitHub account" required name="gitHub" /></td>
                 <td><button>Save</button></td>
             </tr>
         </tfoot>
