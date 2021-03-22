@@ -2,34 +2,33 @@ import { Component } from 'react';
 import './App.css';
 import { PersonsTable } from "./PersonsTable";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persons: []
+      persons: [],
+      date: new Date().toString()
     }
   }
 
   componentDidMount() {
-    console.warn('mount');
-    setTimeout(() => {
-      console.warn("loaded");
-    }, 2000);
-    this.setState({
-      persons: [{
-        "id": "a123",
-        "firstName": "Bilc",
-        "lastName": "Adina",
-        "gitHub": "https://github.com/bilcadina"
-      },
-      {
-        "id": "b563",
-        "firstName": "Carunt",
-        "lastName": "Filip",
-        "gitHub": "https://github.com/bilcadina"
-      }]
-    })
+    setInterval(() => {
+      this.setState({
+        date: new Date().toString()
+      })
+    }, 60000);
+
+    this.load();
+  }
+
+  load() {
+    fetch("http://localhost:3000/teams-json")
+      .then(response => response.json())
+      .then(persons => {
+        this.setState({
+          persons
+        });
+      });
   }
 
   render() {
@@ -39,6 +38,7 @@ class App extends Component {
         <h1>Teams Networking</h1>
         <div>Search</div>
         <PersonsTable persons={this.state.persons} border={1} />
+        <div>{this.state.date}</div>
       </div>
     );
   }
